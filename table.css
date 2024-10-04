@@ -20,3 +20,7 @@ table thead tr{
     background-color: #c300ff;
     font-weight: bold;
 }
+
+.selected{
+    transform: scale(1.2);
+}
