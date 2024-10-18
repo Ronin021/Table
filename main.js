@@ -32,31 +32,18 @@ document.body.appendChild(table);
 
 const thead=document.createElement(`thead`);
 const theadraw= document.createElement(`tr`);
-const thlastname = document.createElement(`th`);
-const thfirstname = document.createElement(`th`);
-const thmarried = document.createElement(`th`);
-const thpet = document.createElement(`th`);
 const tbody = document.createElement(`tbody`);
 
 
 
 
 
-thfirstname.colSpan=2;
-thlastname.innerHTML=`Vezeteknev`;
-thfirstname.innerHTML=`  Keresztnev`;
-thpet.innerHTML=`Háziállat`
-thmarried.innerHTML=`Házas`
+//thfirstname.colSpan=2;
 
-table.appendChild(thead);
-thead.appendChild(theadraw);
-theadraw.appendChild(thlastname);
-theadraw.appendChild(thfirstname);
-theadraw.appendChild(thpet)
-theadraw.appendChild(thmarried);
-table.appendChild(tbody);
-
-
+createTableCell("th",'Vezeteknev', theadraw);
+createTableCell("th",'Keresztnev', theadraw);
+createTableCell("th",'Házas', theadraw);
+createTableCell("th",'Állat', theadraw);
 
 
 
@@ -110,25 +97,17 @@ function rendertable(){
     tbody.innerHTML= '';
     for(const pers of array){
         const tr = document.createElement('tr');
+        tbody.appendChild(tr);
         const td = document.createElement('td'); //lastname
         const td2 = document.createElement('td'); //firstname1
         const td3 = document.createElement('td');//firstname2
         const td4 = document.createElement('td');//married
         const td5 = document.createElement('td');//pet
      
-        tr.addEventListener(`click`, function(e) {
-            console.log(`clicked`);
-            
-            const selector = tbody.querySelector(`.selected`);
-            
-            if(selector != undefined){
-                selector.classList.remove(`selected`)
-            }
-             e.currentTarget.classList.add(`selected`);
-        })
+        
        
      
-        tbody.appendChild(tr);
+        
         tr.appendChild(td);
         tr.appendChild(td2);
        
@@ -152,9 +131,24 @@ function rendertable(){
         td2.colSpan = 2;
      }
      else{
+        const td2 = document.createElement('td');
+
         tr.appendChild(td3);
+
+        td2.innerHTML= pers.firstname2;
         
      }
+     tr.addEventListener(`click`, function(e) {
+        console.log(`clicked`);
+        
+        const selector = tbody.querySelector(`.selected`);
+        
+        if(selector != undefined){
+            selector.classList.remove(`selected`)
+        }
+         e.currentTarget.classList.add(`selected`);
+    })
+    
       tr.appendChild(td5);
       tr.appendChild(td4);
         
@@ -193,4 +187,15 @@ function validateFields(lastnameHTML, firstname1HTML, petHTML){
         
      }
     return result
+}
+/**
+ * 
+ * @param {'td'|'th'} tagName 
+ * @param {string} innerHTML 
+ * @param {HTMLTableRowElement} parentElement 
+ */
+function createTableCell(tagName,innerHTML,parentElement){
+    const tag = document.createElement(tagName) 
+    tag.innerHTML = innerHTML;
+    parentElement.appendChild(tag)
 }
