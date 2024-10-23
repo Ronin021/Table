@@ -34,6 +34,11 @@ const thead=document.createElement(`thead`);
 const theadraw= document.createElement(`tr`);
 const tbody = document.createElement(`tbody`);
 
+table.appendChild(thead)
+table.appendChild(tbody)
+thead.appendChild(theadraw)
+
+
 
 
 
@@ -44,8 +49,7 @@ createTableCell("th",'Vezeteknev', theadraw);
 createTableCell("th",'Keresztnev', theadraw);
 createTableCell("th",'Házas', theadraw);
 createTableCell("th",'Állat', theadraw);
-
-
+ 
 
 
 const form = document.getElementById(`form`)
@@ -93,70 +97,28 @@ form.addEventListener(`submit`, function(e){
 rendertable();
 
 
-function rendertable(){
-    tbody.innerHTML= '';
-    for(const pers of array){
+function rendertable() {
+    tbody.innerHTML = ''; 
+    for (const pers of array) {
         const tr = document.createElement('tr');
         tbody.appendChild(tr);
-        const td = document.createElement('td'); //lastname
-        const td2 = document.createElement('td'); //firstname1
-        const td3 = document.createElement('td');//firstname2
-        const td4 = document.createElement('td');//married
-        const td5 = document.createElement('td');//pet
-     
-        
-       
-     
-        
-        tr.appendChild(td);
-        tr.appendChild(td2);
-       
-        
-     
-     
-        td.innerHTML = pers.lastname;
-        td2.innerHTML = pers.firstname1;
-        td3.innerHTML = pers.firstname2;
-        td4.innerHTML = pers.married
-        td5.innerHTML = pers.pet
-    
-        if(pers.married === true){
-            td4.innerHTML=`igen`
-        }
-        else{
-            td4.innerHTML=`nem`
-        }
-     
-     if(pers.firstname2=== undefined ){
-        td2.colSpan = 2;
-     }
-     else{
-        const td2 = document.createElement('td');
 
-        tr.appendChild(td3);
+        createTableCell('td', pers.lastname, tr); // Vezetéknév
+        createTableCell('td', pers.firstname1, tr); // Keresztnév 1
+        createTableCell('td', pers.firstname2 !== undefined ? pers.firstname2 : '', tr); // Keresztnév 2
+        createTableCell('td', pers.married ? 'igen' : 'nem', tr); // Házas
+        createTableCell('td', pers.pet, tr); // Állat
 
-        td2.innerHTML= pers.firstname2;
-        
-     }
-     tr.addEventListener(`click`, function(e) {
-        console.log(`clicked`);
-        
-        const selector = tbody.querySelector(`.selected`);
-        
-        if(selector != undefined){
-            selector.classList.remove(`selected`)
-        }
-         e.currentTarget.classList.add(`selected`);
-    })
-    
-      tr.appendChild(td5);
-      tr.appendChild(td4);
-        
-     
+        tr.addEventListener('click', function(e) {
+            console.log('clicked');
+            const selector = tbody.querySelector('.selected');
+            if (selector != undefined) {
+                selector.classList.remove('selected');
+            }
+            e.currentTarget.classList.add('selected');
+        });
     }
-
 }
-
 
 function validateFields(lastnameHTML, firstname1HTML, petHTML){
     let result = true
