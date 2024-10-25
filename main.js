@@ -46,7 +46,7 @@ thead.appendChild(theadraw)
 //thfirstname.colSpan=2;
 
 createTableCell("th",'Vezeteknev', theadraw);
-createTableCell("th",'Keresztnev', theadraw);
+const Keresztnev_createtablecell=createTableCell("th",'Keresztnev', theadraw);
 createTableCell("th",'Házas', theadraw);
 createTableCell("th",'Állat', theadraw);
  
@@ -109,6 +109,8 @@ function rendertable() {
         createTableCell('td', pers.married ? 'igen' : 'nem', tr); // Házas
         createTableCell('td', pers.pet, tr); // Állat
 
+        
+
         tr.addEventListener('click', function(e) {
             console.log('clicked');
             const selector = tbody.querySelector('.selected');
@@ -119,6 +121,7 @@ function rendertable() {
         });
     }
 }
+form.reset()
 
 function validateFields(lastnameHTML, firstname1HTML, petHTML){
     let result = true
@@ -149,6 +152,7 @@ function validateFields(lastnameHTML, firstname1HTML, petHTML){
         
      }
     return result
+    
 }
 /**
  * 
@@ -160,4 +164,5 @@ function createTableCell(tagName,innerHTML,parentElement){
     const tag = document.createElement(tagName) 
     tag.innerHTML = innerHTML;
     parentElement.appendChild(tag)
+    return tag
 }
