@@ -79,3 +79,35 @@ function rendertable(person_array){
         });
     }
 }
+
+function validateFields(lastname_id, firstname1_id, ppet_id) { 
+    const lastnameHTML = document.getElementById(lastname_id)
+    const firstname1HTML = document.getElementById(firstname1_id)
+    const petHTML = document.getElementById(ppet_id)
+    let result = true
+    if (!Elementvalidation(lastnameHTML, "Kötelező vezetéknevet adni!")) { 
+        result = false 
+    }
+
+    if (!Elementvalidation(firstname1HTML, "Kötelező keresztnevet adni!")) { 
+        result = false
+    }
+
+    if (!Elementvalidation(petHTML, "Kötelező kiválasztani a háziállatot!")) { 
+        result = false
+    }
+
+    return result;
+}
+
+
+function Elementvalidation(HTMLelement2,errormessage ){
+    const errorElement = HTMLelement2.parentElement.querySelector(`.error`)
+    if(HTMLelement2.value === ""){
+        errorElement.innerHTML = errormessage
+        return false
+
+    }
+    errorElement.innerHTML = ""
+    return true
+}
